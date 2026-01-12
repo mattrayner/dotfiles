@@ -1,0 +1,19 @@
+[defaults]
+format = "{\"text\": \"{state}\",\"tooltip\": \"{name} {time} {state} {percent}%\", \"class\": \"{state}\", \"alt\": \"{state}\", \"percentage\": {percent}}"
+time_format = "%M\\n%S"
+
+[[sessions]]
+id = "work"
+name = "work"
+duration = "52m"
+paused_state_text = "paused"
+resumed_state_text = "running"
+command = "notify-send 'Work Done!'"
+
+[[sessions]]
+id = "rest"
+name = "rest"
+duration = "17m"
+paused_state_text = "paused"
+resumed_state_text = "running"
+command = "notify-send 'Rest Done!'"

@@ -1,0 +1,144 @@
+@import "../omarchy/current/theme/waybar.css";
+
+
+* {
+  border: none;
+  font-size: 12px;
+  font-weight: 600;
+  background: none;
+  padding:0;
+  margin: 0;
+  font-family: 'Iosevka Nerd Font Mono';
+}
+
+window#waybar {
+  color: @foreground;
+}
+
+.modules-left,
+.modules-right,
+.modules-center {
+  border-radius: 10px;
+  background: alpha(@background, 0.78);
+  padding: 12px 0;
+  box-shadow: 0 2.5px 2px 0 rgba(0, 0, 0, 0.3);
+}
+
+.modules-left {
+  margin: 8px 2px 0 8px;
+}
+
+.modules-center {
+  margin: 0 2px 0 8px;
+}
+
+.modules-right {
+  margin: 0 2px 8px 8px;
+}
+
+tooltip {
+  color: @foreground;
+  background-color: alpha(@background, 0.78);
+  text-shadow: none;
+}
+
+tooltip * {
+  color: @foreground;
+  text-shadow: none;
+}
+
+#custom-sep {
+  color: alpha(@foreground, 0.3);
+  margin: 1px 0;
+}
+#workspaces,
+#clock,
+#custom-bluetooth_devices,
+#custom-powermenu,
+#pulseaudio,
+#network,
+#tray {
+}
+#workspaces {
+    padding: 0px 5px;
+}
+#workspaces button {
+    all:unset;
+    padding: 0px 5px;
+    color: alpha(@foreground,.4);
+    transition: all .4s ease;
+}
+#workspaces button:hover, #workspaces button.empty:hover {
+    color: alpha(@foreground,.6);
+    border: none;
+    text-shadow: 0px 0px 1.5px rgba(0, 0, 0, .5);
+    transition: all 1s ease;
+}
+#workspaces button.active, #workspaces button.empty.active {
+    color: #fd9eff;
+    border: none;
+    text-shadow: 0px 0px 2px rgba(0, 0, 0, .5);
+}
+#workspaces button.empty {
+    color: alpha(@foreground,.2);
+    border: none;
+    text-shadow: 0px 0px 1.5px rgba(0, 0, 0, .2);
+}
+#temperature {
+  font-size: 12px;
+  color: #eed49f;
+}
+#clock {
+  font-weight: 600;
+  color: #8bd5ca;
+}
+
+#network, #custom-platform-profile, #idle_inhibitor, #pulseaudio, #custom-uair {
+  font-size: 20px;
+}
+
+#network {
+  color: #8aadf4;
+}
+#pulseaudio {
+  color: #a6da95;
+}
+#pulseaudio.muted {
+  color: #ed8796;
+}
+
+#custom-powermenu {
+  color: #6e738d;
+}
+
+#custom-pomodoro {
+  color: red
+}
+
+#custom-uair.resumed {
+  color: #f87171;
+}
+
+#custom-platform-profile {
+  color: #f5a97f;
+}
+
+#battery.warning {
+  color: #eed49f;
+}
+
+#battery.critical {
+  color: #ed8796;
+}
+
+#battery.charging {
+  color: #8bd5ca;
+}
+
+#custom-uair.work-paused {
+  color: #a6da95;
+}
+
+#customer-uair.work-resumed {
+  color: #f87171;
+}
