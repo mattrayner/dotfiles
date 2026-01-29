@@ -7,6 +7,7 @@ Packages to add post-install
 * brew-git
 * uair
 * aws-cli-v2
+* aws-session-manager-plugin
 * zellij
 * direnv
 * hyprmode
