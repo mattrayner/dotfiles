@@ -19,7 +19,7 @@ window#waybar {
 .modules-right,
 .modules-center {
   border-radius: 10px;
-  background: alpha(@background, 0.78);
+  background: alpha(@background, 0.5);
   padding: 12px 0;
   box-shadow: 0 2.5px 2px 0 rgba(0, 0, 0, 0.3);
 }
@@ -141,4 +141,9 @@ tooltip * {
 
 #customer-uair.work-resumed {
   color: #f87171;
+}
+
+#custom-idle-indicator.active,
+#custom-notification-silencing-indicator.active {
+  color: #a55555;
 }
