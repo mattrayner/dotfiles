@@ -3,3 +3,10 @@
 #
 
 [[ -f ~/.bashrc ]] && . ~/.bashrc
+
+. "$HOME/.local/share/../bin/env"
+
+
+# Added by Toolbox App
+export PATH="$PATH:/home/matt/.local/share/JetBrains/Toolbox/scripts"
+
