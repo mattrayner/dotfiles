@@ -22,6 +22,9 @@ source ~/.local/share/omarchy/default/bash/rc
 # Make an alias for invoking commands you use constantly
 # alias p='python'
 
+# Source aliases from alias files
+source ~/.aliases
+
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 # eval "$(rbenv init -)"
