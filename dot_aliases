@@ -1,3 +1,6 @@
 alias td='~/.config/tmux/scripts/tmux-launch.sh'
+
 alias vi='vim'
 alias vim='nvim'
+
+aslp='aws sso login --profile'
