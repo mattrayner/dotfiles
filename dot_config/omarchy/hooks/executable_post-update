@@ -3,6 +3,8 @@
 # This hook is called after an Omarchy system update has been performed.
 # We use it to ensure our custom udev power rules survive updates.
 
+export PATH="$PATH:$HOME/.local/share/omarchy/bin"
+
 if omarchy-battery-present; then
   cat <<EOF | sudo tee "/etc/udev/rules.d/99-power-profile.rules" >/dev/null
 SUBSYSTEM=="power_supply", ATTR{type}=="Mains", ATTR{online}=="0", RUN+="/usr/bin/systemd-run --no-block --collect --unit=omarchy-power-profile-battery --property=After=power-profiles-daemon.service $HOME/.config/omarchy/custom-powerprofiles-set.sh battery"
