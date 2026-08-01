@@ -3,4 +3,51 @@ alias td='~/.config/tmux/scripts/tmux-launch.sh'
 alias vi='vim'
 alias vim='nvim'
 
-aslp='aws sso login --profile'
+alias aslp='aws sso login --profile'
+
+alias clients='cd ~/clients'
+
+# Clear all saved sessions for tmux, nvim, and opencode
+clear-sessions() {
+  local tmux_dir="$HOME/.tmux/resurrect"
+  local nvim_dir="$HOME/.local/state/nvim/sessions"
+  echo "This will clear saved session data for:"
+  [ -d "$tmux_dir" ]    && echo "  - tmux resurrect ($(find "$tmux_dir" -name '*.txt' | wc -l) save files)"
+  [ -d "$nvim_dir" ]    && echo "  - nvim possession ($(find "$nvim_dir" -name '*.vim' | wc -l) session files)"
+  echo ""
+
+  read -p "Are you sure? (y/N) " confirm
+  [[ "$confirm" != [yY] ]] && echo "Cancelled." && return 0
+
+  # Kill tmux server if running (sessions can't be restored if server is live)
+  if tmux list-sessions &>/dev/null; then
+    read -p "tmux is running. Kill server first? (y/N) " kill_tmux
+    if [[ "$kill_tmux" == [yY] ]]; then
+      tmux kill-server
+      echo "  ✓ tmux server killed"
+    else
+      echo "  ⚠ tmux still running — resurrect may re-save on exit"
+    fi
+  fi
+
+  # Clear tmux resurrect saves
+  if [ -d "$tmux_dir" ]; then
+    rm -f "$tmux_dir"/tmux_resurrect_*.txt
+    rm -f "$tmux_dir"/last
+    rm -f "$tmux_dir"/assistant-sessions.json
+    echo "  ✓ tmux resurrect cleared"
+  else
+    echo "  - tmux resurrect dir not found, skipping"
+  fi
+
+  # Clear nvim possession sessions
+  if [ -d "$nvim_dir" ]; then
+    rm -f "$nvim_dir"/*.vim
+    echo "  ✓ nvim sessions cleared"
+  else
+    echo "  - nvim sessions dir not found, skipping"
+  fi
+
+  echo ""
+  echo "Done. Sessions cleared."
+}
