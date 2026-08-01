@@ -1,52 +1,42 @@
 {
   "reload_style_on_change": true,
   "layer": "top",
-  "position": "left",
-  "width": 10,
+  "position": "top",
   "spacing": 0,
-  "modules-left": [
-    "clock",
-    "idle_inhibitor",
-    "custom/sep",
-    "tray"
-  ],
-  "modules-center": [
-    "hyprland/workspaces"
-  ],
+  "height": 26,
+  "modules-left": ["custom/omarchy", "hyprland/workspaces"],
+  "modules-center": ["clock", "custom/weather", "custom/update", "custom/voxtype", "custom/screenrecording-indicator", "custom/idle-indicator", "custom/notification-silencing-indicator"],
   "modules-right": [
-    "custom/uair",
-    "custom/uair-text",
-    "custom/sep",
-    "custom/update",
-    "custom/screenrecording-indicator",
-    "custom/platform-profile",
+    "group/tray-expander",
+    "bluetooth",
     "network",
-    "custom/sep",
-    "temperature",
-    "custom/sep",
     "pulseaudio",
-    "custom/sep",
+    "cpu",
     "battery"
   ],
-  "custom/sep": {
-    //    "format": "──"
-    "format": "-"
-  },
   "hyprland/workspaces": {
+    "on-click": "activate",
     "format": "{icon}",
     "format-icons": {
-      "active": "",
-      "default": "",
-      "empty": ""
+      "default": "",
+      "1": "1",
+      "2": "2",
+      "3": "3",
+      "4": "4",
+      "5": "5",
+      "6": "6",
+      "7": "7",
+      "8": "8",
+      "9": "9",
+      "10": "0",
+      "active": "󱓻"
     },
     "persistent-workspaces": {
-      "*": [
-        1,
-        2,
-        3,
-        4,
-        5
-      ]
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": [],
+      "5": []
     }
   },
   "custom/omarchy": {
@@ -56,105 +46,106 @@
     "tooltip-format": "Omarchy Menu\n\nSuper + Alt + Space"
   },
   "custom/update": {
-    "rotate": 90,
     "format": "",
     "exec": "omarchy-update-available",
     "on-click": "omarchy-launch-floating-terminal-with-presentation omarchy-update",
     "tooltip-format": "Omarchy update available",
     "signal": 7,
-    "interval": 3600
+    "interval": 21600
+  },
+
+  "cpu": {
+    "interval": 5,
+    "format": "󰍛",
+    "on-click": "omarchy-launch-or-focus-tui btop",
+    "on-click-right": "alacritty"
   },
   "clock": {
-    "format": "{:%H\n%M}",
-    "tooltip-format": "{:L%d %B W%V %Y}",
+    "format": "{:L%A %H:%M}",
+    "format-alt": "{:L%d %B W%V %Y}",
+    "tooltip": false,
     "on-click-right": "omarchy-launch-floating-terminal-with-presentation omarchy-tz-select"
   },
+  "custom/weather": {
+    "exec": "$OMARCHY_PATH/default/waybar/weather.sh",
+    "return-type": "json",
+    "interval": 60,
+    "tooltip": false,
+    "on-click": "notify-send -u low \"$(omarchy-weather-status)\""
+  },
   "network": {
-    "rotate": 90,
-    "format-icons": [
-      "󰤯",
-      "󰤟",
-      "󰤢",
-      "󰤥",
-      "󰤨"
-    ],
+    "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
     "format": "{icon}",
     "format-wifi": "{icon}",
-    "format-ethernet": "󰈀",
+    "format-ethernet": "󰀂",
     "format-disconnected": "󰤮",
     "tooltip-format-wifi": "{essid} ({frequency} GHz)",
     "tooltip-format-ethernet": "Connected",
     "tooltip-format-disconnected": "Disconnected",
-    "interval": 5,
-    "spacing": 0,
+    "interval": 3,
+    "spacing": 1,
     "on-click": "omarchy-launch-wifi"
   },
   "battery": {
-    "rotate": 90,
-    "format-discharging": "{icon} {capacity}%",
-    "format-charging": "{icon} {capacity}%",
+    "format": "{capacity}% {icon}",
+    "format-discharging": "{icon}",
+    "format-charging": "{icon}",
     "format-plugged": "",
     "format-icons": {
-      "charging": [
-        "󰢜",
-        "󰂆",
-        "󰂇",
-        "󰂈",
-        "󰢝",
-        "󰂉",
-        "󰢞",
-        "󰂊",
-        "󰂋",
-        "󰂅"
-      ],
-      "default": [
-        "󰁺",
-        "󰁻",
-        "󰁼",
-        "󰁽",
-        "󰁾",
-        "󰁿",
-        "󰂀",
-        "󰂁",
-        "󰂂",
-        "󰁹"
-      ]
+      "charging": ["󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"],
+      "default": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
     },
     "format-full": "󰂅",
-    "tooltip-format-discharging": "{power:>1.0f}W↓ {capacity}%\n{timeTo}",
-    "tooltip-format-charging": "{power:>1.0f}W↑ {capacity}%\n{timeTo}",
+    "tooltip-format-discharging": "{power:>1.0f}W↓ {capacity}%",
+    "tooltip-format-charging": "{power:>1.0f}W↑ {capacity}%",
     "interval": 5,
-    "on-clicik": "omarchy-menu power",
+    "on-click": "omarchy-menu power",
+    "on-click-right": "notify-send -u low \"$(omarchy-battery-status)\"",
     "states": {
       "warning": 20,
       "critical": 10
     }
   },
+  "bluetooth": {
+    "format": "",
+    "format-off": "󰂲",
+    "format-disabled": "󰂲",
+    "format-connected": "󰂱",
+    "format-no-controller": "",
+    "tooltip-format": "Devices connected: {num_connections}",
+    "on-click": "omarchy-launch-bluetooth"
+  },
   "pulseaudio": {
-    "rotate": 90,
     "format": "{icon}",
-    "format-bluetooth": "{icon}",
+    "on-click": "omarchy-launch-audio",
+    "on-click-right": "pamixer -t",
+    "tooltip-format": "Playing at {volume}%",
+    "scroll-step": 5,
     "format-muted": "",
     "format-icons": {
-      "headphones": "",
-      "handsfree": "",
-      "headset": "",
-      "phone": "",
-      "portable": "",
-      "car": "",
+      "headphone": "",
       "headset": "",
-      "default": [
-        "",
-        "",
-        ""
-      ]
+      "default": ["", "", ""]
+    }
+  },
+  "group/tray-expander": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 600,
+      "children-class": "tray-group-item"
     },
-    "scroll-step": 3,
-    "on-click": "omarchy-launch-or-focus-tui wiremix",
-    "on-click-right": "pamixer -t"
+    "modules": ["custom/expand-icon", "tray"]
+  },
+  "custom/expand-icon": {
+    "format": "",
+    "tooltip": false,
+    "on-scroll-up": "",
+    "on-scroll-down": "",
+    "on-scroll-left": "",
+    "on-scroll-right": ""
   },
   "custom/screenrecording-indicator": {
-    "on-click": "omarchy-cmd-screenrecord",
+    "on-click": "omarchy-capture-screenrecording",
     "exec": "$OMARCHY_PATH/default/waybar/indicators/screen-recording.sh",
     "signal": 8,
     "return-type": "json"
@@ -171,71 +162,21 @@
     "signal": 10,
     "return-type": "json"
   },
+  "custom/voxtype": {
+    "exec": "omarchy-voxtype-status",
+    "return-type": "json",
+    "format": "{icon}",
+    "format-icons": {
+      "idle": "",
+      "recording": "󰍬",
+      "transcribing": "󰔟"
+    },
+    "tooltip": true,
+    "on-click-right": "omarchy-voxtype-config",
+    "on-click": "omarchy-voxtype-model"
+  },
   "tray": {
-    "icon-size": 10,
-    "show-passive-items": "true"
-  },
-  "idle_inhibitor": {
-    "format": "{icon}",
-    "format-icons": {
-      "activated": "",
-      "deactivated": ""
-    }
-  },
-  "custom/platform-profile": {
-    "format": "{icon}",
-    "exec": "~/.config/waybar/platform_profile.sh",
-    "return-type": "json",
-    "restart-interval": 1,
-    "format-icons": {
-      "low-power": "󰌪",
-      "balanced": "󰈐",
-      "performance": "",
-      "default": "?"
-    },
-    "on-click": "omarchy-menu power",
-    "tooltip": false
-  },
-  "temperature": {
-    "rotate": 90,
-    "tooltip": false,
-    "critical-threshold": 80,
-    "format": "{icon} {temperatureC}°C",
-    "format-icons": [
-      "",
-      "",
-      ""
-    ]
-  },
-  "custom/uair": {
-    "format": "{icon}",
-    "class": "{alt}",
-    "format-icons": {
-      "work-running": "󱎫",
-      "work-paused": "󰔛",
-      "rest-running": "",
-      "rest-paused": "󱂟",
-      "short-running": "sr",
-      "short-paused": "sp",
-      "default": "d"
-    },
-    "return-type": "json",
-    "interval": 5,
-    "on-click": "uairctl toggle",
-    "on-click-middle": "uairctl prev",
-    "on-click-right": "uairctl next",
-    "exec-if": "which uairctl",
-    "exec": "uairctl fetch  '{ \"alt\": \"{name}-{state}\", \"tooltip\": \"{name} {percent}%\", \"percentage\": {percent} }'"
-  },
-  "custom/uair-text": {
-    "format": "{text}",
-    "class": "{alt}",
-    "return-type": "json",
-    "interval": 1,
-    "on-click": "uairctl toggle",
-    "on-click-middle": "uairctl prev",
-    "on-click-right": "uairctl next",
-    "exec-if": "which uairctl",
-    "exec": "uairctl fetch  '{ \"text\": \"{time}\", \"tooltip\": \"{name} {percent}%\", \"alt\": \"{name}-{state}\" }'"
+    "icon-size": 12,
+    "spacing": 17
   }
 }
